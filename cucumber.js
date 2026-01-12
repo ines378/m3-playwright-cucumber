@@ -8,12 +8,11 @@ require('fs-extra').remove('./test-results/videos');
 
 let options = [
     '--require-module ts-node/register',
-    '--require **/steps/*.ts',
+    '--require ./src/web/steps/**/*.ts',
     '--require ./src/support/config/hooks.ts',
     '--format summary',
     '--format rerun:@rerun.txt',
     '--format json:./test-results/reports/cucumber.json',
-    '--publish-quiet true',
     `--parallel=${process.env.PARALLEL_THREAD}`,
     `--format-options '{"snippetInterface":"async-await"}'`,
     `--retry=${process.env.RETRIES}`,
