@@ -64,7 +64,7 @@ async function selectFirstRowNoOpen(page: Page, timeout = 60000) {
  // clique dans la marge gauche (zone la + safe)
  const leftSafeCell = row.locator(".slick-cell.l0.r0, .slick-cell:first-child").first();
  const box = await leftSafeCell.boundingBox();
- if (!box) throw new Error("❌ Impossible de récupérer la position de la cellule gauche");
+ if (!box) throw new Error("Impossible de récupérer la position de la cellule gauche");
  // mousedown/up => moins de risques de double-click
  await page.mouse.move(box.x + 4, box.y + box.height / 2);
  await page.mouse.down();
@@ -193,10 +193,10 @@ async function selectFirstGridRow(page: Page, timeout = 60000) {
  await page.mouse.click(box.x + 8, box.y + box.height / 2);
 }
 
-/** -------------------- STATE -------------------- **/
+
 let copiedCDV = "";
 
-/** -------------------- STEPS -------------------- **/
+
 
 Given("user opens Inform M3 Recette", async function () {
  await this.page.goto("https://recinforos.sonepar.fr/infor/homepages");
@@ -208,7 +208,7 @@ Given("user opens Inform M3 Recette", async function () {
  await tile.waitFor({ state: "visible", timeout: 60000 });
  await tile.scrollIntoViewIfNeeded();
  await tile.click({ force: true });
- console.log("⏳ Attente chargement moteur M3...");
+ console.log(" Attente chargement moteur M3...");
  //  ON N’ATTEND PAS domcontentloaded
  //  ON ATTEND L’IFRAME M3 + cmdText
  const start = Date.now();
@@ -217,14 +217,14 @@ Given("user opens Inform M3 Recette", async function () {
      if (frame.url().includes("infor")) {
        const cmd = frame.locator("input#cmdText, #cmdText");
        if (await cmd.count().catch(() => 0)) {
-         console.log("✅ Moteur M3 prêt");
+         console.log(" Moteur M3 prêt");
          return;
        }
      }
    }
    await this.page.waitForTimeout(500);
  }
- throw new Error("❌ Moteur M3 non chargé après 90s");
+ throw new Error(" Moteur M3 non chargé après 90s");
 });
 When("user presses Ctrl R", async function () {
  await focusM3Hard(this.page);
@@ -377,7 +377,7 @@ When("user filters by CDV {string}", async function (cdvValue: string) {
  await this.page.keyboard.press("Control+A");
  await this.page.keyboard.type(value, { delay: 20 });
  await this.page.keyboard.press("Enter");
- console.log("✅ Filtre CDV =", value);
+ console.log("Filtre CDV =", value);
 });
 
 When("user selects first row", async function () {
@@ -433,7 +433,7 @@ When("user runs option 19 in MWS410", async function () {
  await this.page.keyboard.press("Escape").catch(() => {});
  await this.page.waitForTimeout(150);
  // être sûr qu'une ligne est sélectionnée
- await selectFirstGridRow(this.page, 60000);
+ await selectFirstGridRow(this.page, 30000);
  //  focus moteur M3 (sinon Ctrl+19 part dans le vide)
  await focusM3Hard(this.page);
  await this.page.waitForTimeout(100);
@@ -457,7 +457,7 @@ When(/^user exits MWS410 to OIS300 with f3$/i, async function () {
  await this.page.keyboard.press("F3"); // 1 seul F3
  await Promise.race([
    waitInAnyFrame(this.page, ".slick-viewport .slick-row, #toolBoxBtnCont", 30000),
-   waitInAnyFrame(this.page, "text=/OIS300/i", 30000),
+   waitInAnyFrame(this.page, "text=/OIS300/i", 20000),
  ]);
  await this.page.waitForTimeout(30000); // rester 30s sur OIS300
 });
