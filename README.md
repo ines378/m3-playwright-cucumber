@@ -1,3 +1,10 @@
+Présentation :
+
+Voici un exemple de framework d'automatisation de tests développé avec Playwright et Cucumber.
+
+Playwright est un framework de tests et d'automatisation web. Il permet de tester Chromium, Firefox et WebKit avec une API unique. Playwright est conçu pour une automatisation web multiplateforme, performante, fiable et rapide.
+
+Cucumber est un outil d'exécution de tests automatisés écrits en langage naturel. Grâce à ce langage, tous les membres de votre équipe peuvent les lire. Cette accessibilité favorise la communication, la collaboration et la confiance au sein de votre équipe. Cucumber prend en charge le développement piloté par le comportement (BDD). Au cœur de l'approche BDD de Cucumber se trouve son analyseur syntaxique, Gherkin.
 
 # ETAPES COMPLETES -- CLONER LE PROJET ET LANCER PLAYWRIGHT + CUCUMBER
 ## 1) PRE-REQUIS
